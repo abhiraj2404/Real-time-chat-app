@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import "./App.css";
 import { io } from "socket.io-client";
+import Button from "./components/Button";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -13,18 +13,21 @@ function App() {
 
   const handlersubmit = (e) => {
     e.preventDefault();
-    socket.emit("clientmessage", {
-      msg: message,
-      room: room,
-      userName: userName,
-    });
-    setMessage("");
+    if (message) {
+      socket.emit("clientmessage", {
+        msg: message,
+        room: room,
+        userName: userName,
+      });
+      setMessage("");
+    }
   };
 
   const handlerjoinroom = (e) => {
     e.preventDefault();
-    socket.emit("joinroom", room);
-    setRoom("");
+    if (room) {
+      socket.emit("joinroom", { userName, room });
+    }
   };
 
   useEffect(() => {
@@ -48,6 +51,7 @@ function App() {
 
   return (
     <>
+      <Button />
       <h1>WORLD CHAT</h1>
       <h1>My connection ID : {connectionID}</h1>
 
