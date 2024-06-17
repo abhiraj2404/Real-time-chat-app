@@ -4,6 +4,7 @@ import WorldChatButton from "./buttom_components/WorldChatButton";
 import applogo from "../../assets/logo.svg";
 import { AppContext } from "../../context/appContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 export function Sidebar() {
   const { userName } = useContext(AppContext);
@@ -13,12 +14,12 @@ export function Sidebar() {
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
-              <a href="https://flowbite.com" className="flex ms-2 md:me-24">
+              <div className="flex ms-2 md:me-24">
                 <img src={applogo} className="h-8 me-3" alt="FlowBite Logo" />
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                   Deep-Chat
                 </span>
-              </a>
+              </div>
             </div>
             <div className="text-2xl font-semibold text-white">
               Welcome , <span className="text-blue-400">{userName}</span>
@@ -41,7 +42,9 @@ export function Sidebar() {
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800 mx-2">
           <ul className="space-y-2 font-medium mb-4">
-            <WorldChatButton />
+            <Link to="/chats/msgbox">
+              <WorldChatButton />
+            </Link>
           </ul>
           <ul className="space-y-2 font-medium border-y border-gray-700 py-4">
             <li>
@@ -72,7 +75,9 @@ export function Sidebar() {
             <RoomButton />
             <RoomButton />
           </ul>
-          <Createroombutton />
+          <Link to="/chats/createroom">
+            <Createroombutton />
+          </Link>
         </div>
       </aside>
     </>

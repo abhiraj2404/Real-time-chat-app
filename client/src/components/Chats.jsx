@@ -1,8 +1,8 @@
 import React from "react";
 import { Sidebar } from "./Chats/Sidebar";
-import Msgbox from "./Chats/msgbox";
+import Msgbox from "./Chats/MsgBox";
 import { AppContext } from "../context/appContext";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function Chats() {
   const { userName } = React.useContext(AppContext);
@@ -23,7 +23,7 @@ function Chats() {
   return (
     <div className="w-full h-screen bg-black">
       <Sidebar />
-      <Msgbox />
+      <Outlet />
     </div>
   );
 }

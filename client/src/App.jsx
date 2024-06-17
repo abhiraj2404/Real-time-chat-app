@@ -4,6 +4,9 @@ import { io } from "socket.io-client";
 import { Routes, Route } from "react-router-dom";
 import Chats from "./components/Chats.jsx";
 import Home from "./components/Home.jsx";
+import CreateRoomCard from "./components/CreateRoomCard.jsx";
+import MsgBox from "./components/Chats/MsgBox.jsx";
+import ChatHome from "./components/ChatHome.jsx";
 
 function App() {
   // const [message, setMessage] = useState("");
@@ -52,14 +55,40 @@ function App() {
   //   });
   // }, [socket]);
 
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/chats" element={<Chats />} />
-      </Routes>
+  /* Storing user's device details in a variable*/
+  let details = navigator.userAgent;
+  let regexp = /android|iphone|kindle|ipad/i;
 
-      {/* <div>
+  /* Using test() method to search regexp in details 
+it returns boolean value*/
+  let isMobileDevice = regexp.test(details);
+
+  if (isMobileDevice) {
+    return (
+      <div className="w-full h-screen bg-black flex justify-center items-center p-4">
+        <h1 className="text-white font-bold text-2xl">
+          This app is currently not supported for mobile devices. Please open it
+          on a desktop or laptop browser.
+        </h1>
+        ;
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="chats" element={<Chats />}>
+            <Route path="" element={<ChatHome />} />
+            <Route path="createroom" element={<CreateRoomCard />} />
+            <Route path="msgbox" element={<MsgBox />} />
+          </Route>
+        </Routes>
+      </>
+    );
+  }
+  {
+    /* <div>
         <h1>WORLD CHAT</h1>
         <h1>My connection ID : {connectionID}</h1>
 
@@ -122,9 +151,8 @@ function App() {
             ))}
           </div>
         </div>
-      </div> */}
-    </>
-  );
+      </div> */
+  }
 }
 
 export default App;
