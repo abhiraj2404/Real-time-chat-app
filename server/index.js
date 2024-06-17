@@ -6,6 +6,7 @@ import cors from 'cors';
 const app = express();
 app.use(cors());
 const server = createServer(app);
+let userArray = [];
 
 const io = new Server(server, {
     cors: {
@@ -17,20 +18,31 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log('A user connected', socket.id);
 
+
     socket.on('joinroom', ({ userName, room }) => {
         socket.join(room);
         console.log(`User ${userName} joined room: ${room}`);
     });
 
-    socket.on('clientmessage', ({ msg, room, userName }) => {
+    socket.on('clientmessage', ({ msg, room, userName, type, time }) => {
+        userArray.push({ userName: userName, socket_id: socket.id });
         console.log(`${userName}: ${msg}`);
         if (room)
-            io.to(room).emit('servermessage', { msg, room, userName });
-        else
-            io.emit('servermessage', { msg, userName, room });
+            io.to(room).emit('servermessage', { msg, room, userName, type, time });
+        else {
+            io.emit('servermessage', { msg, userName, room, type, time });
+        }
+    });
+
+    socket.on('left', ({ userName }) => {
+        console.log(`User ${userName} left the chat`);
     });
 
     socket.on('disconnect', () => {
+        let foundUser = userArray.find(user => user.socket_id === socket.id);
+        if (foundUser) {
+            io.emit('servermessage', { msg: '', userName: foundUser.userName, type: 'leave', room: '' });
+        }
         console.log('User disconnected', socket.id);
     });
 
