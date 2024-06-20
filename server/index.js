@@ -32,10 +32,10 @@ io.on('connection', (socket) => {
                 serverroomArray.push({ roomname: key });
             }
         }
-        // if (type === 'join')
-        //     io.to(room).emit('servermessage', { msg, room, userName, type, time, serveruserArray, serverroomArray });
+        if (type === 'join')
+            io.to(room).emit('servermessage', { msg, room, userName, type, time, serveruserArray, serverroomArray });
         console.log(`User ${userName} joined room: ${room}`);
-        io.emit('servermessage', { msg, room, userName, type, time, serveruserArray, serverroomArray });
+        io.emit('servermessage', { msg, room, userName, type: '', time, serveruserArray, serverroomArray });
     });
 
     socket.on('clientmessage', ({ msg, room, userName, type, time }) => {

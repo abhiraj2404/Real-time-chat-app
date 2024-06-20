@@ -8,6 +8,7 @@ import CreateRoomCard from "./components/CreateRoomCard.jsx";
 import MsgBox from "./components/Chats/MsgBox.jsx";
 import ChatHome from "./components/ChatHome.jsx";
 import { AppContext } from "./context/appContext";
+import Rules from "./components/Chats/Rules.jsx";
 
 function App() {
   const { messagearray, roomMsgArray } = useContext(AppContext);
@@ -82,6 +83,7 @@ it returns boolean value*/
           <Route path="/" element={<Home />} />
           <Route path="chats" element={<Chats />}>
             <Route path="" element={<ChatHome />} />
+            <Route path="rules" element={<Rules />} />
             <Route path="createroom" element={<CreateRoomCard />} />
             <Route
               path="msgbox/worldchat"

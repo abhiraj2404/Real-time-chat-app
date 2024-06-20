@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Usermsg from "./msg_components/Usermsg";
 import Servermsg from "./msg_components/Servermsg";
 import Joinmsg from "./msg_components/Joinmsg";
 import LeaveMsg from "./msg_components/Leavemsg";
 import { AppContext } from "../../context/appContext";
 import { useContext } from "react";
+import EmojiPicker, { Emoji } from "emoji-picker-react";
 
 function Msgbox({ messagearray }) {
   const { message, setMessage, userName, handlersubmit, currentroom } =
     useContext(AppContext);
+  const [emojiopen, setemojiopen] = useState(false);
   let displayArray = messagearray.map((data, index) => {
     if (data.type === "join") {
       return <Joinmsg key={index} data={data} />;
@@ -25,18 +27,18 @@ function Msgbox({ messagearray }) {
   return (
     <>
       <div className="p-4 sm:ml-64 h-screen">
-        <div className="p-4 border-2 bg-gray-900 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 h-[90%] flex flex-col gap-3 mx-40">
-          <h1 className="text-blue-100 font-normal text-3xl w-full underline text-center ">
+        <div className=" border-2 bg-gray-900 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 h-[90%] flex flex-col gap-3 mx-40">
+          <h1 className=" text-blue-100 font-normal p-2 text-2xl w-full italic bg-gray-800 text-center">
             {currentroom}
           </h1>
           <div
             id="messages"
-            className="flex-1 flex flex-col gap-4 overflow-y-scroll "
+            className="flex-1 flex flex-col gap-4 overflow-y-scroll mx-4"
           >
             {displayArray}
           </div>
 
-          <form onSubmit={handlersubmit}>
+          <form onSubmit={handlersubmit} className="mx-4 mb-4 relative">
             <label htmlFor="chat" className="sr-only">
               Your message
             </label>
@@ -73,9 +75,30 @@ function Msgbox({ messagearray }) {
                 </svg>
                 <span className="sr-only">Upload image</span>
               </button>
+              <EmojiPicker
+                className="absolute top-0 right-0 z-50"
+                theme="dark"
+                open={emojiopen}
+                width={300}
+                height={350}
+                style={{
+                  position: "absolute",
+                  top: -355,
+                  right: 650,
+                  zIndex: "50",
+                }}
+                previewConfig={{ showPreview: false }}
+                onEmojiClick={(emojiData) => {
+                  console.log(emojiData.emoji);
+                  setMessage(message + emojiData.emoji);
+                }}
+              />
               <button
                 type="button"
-                className="p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                onClick={() => {
+                  setemojiopen((prev) => !prev);
+                }}
+                className="relative p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
               >
                 <svg
                   className="w-5 h-5"
