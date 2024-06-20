@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 
 import { Routes, Route } from "react-router-dom";
@@ -7,8 +7,10 @@ import Home from "./components/Home.jsx";
 import CreateRoomCard from "./components/CreateRoomCard.jsx";
 import MsgBox from "./components/Chats/MsgBox.jsx";
 import ChatHome from "./components/ChatHome.jsx";
+import { AppContext } from "./context/appContext";
 
 function App() {
+  const { messagearray, roomMsgArray } = useContext(AppContext);
   // const [message, setMessage] = useState("");
   // const [connectionID, setConnectionID] = useState("");
   // const [roomMsgArray, setRoomMsgArray] = useState([]);
@@ -29,7 +31,7 @@ function App() {
   //   }
   // };
 
-  // const handlerjoinroom = (e) => {
+  // const handlercreateroom = (e) => {
   //   e.preventDefault();
   //   if (room) {
   //     socket.emit("joinroom", { userName, room });
@@ -81,7 +83,14 @@ it returns boolean value*/
           <Route path="chats" element={<Chats />}>
             <Route path="" element={<ChatHome />} />
             <Route path="createroom" element={<CreateRoomCard />} />
-            <Route path="msgbox" element={<MsgBox />} />
+            <Route
+              path="msgbox/worldchat"
+              element={<MsgBox messagearray={messagearray} />}
+            />
+            <Route
+              path="msgbox/roomchat"
+              element={<MsgBox messagearray={roomMsgArray} />}
+            />
           </Route>
         </Routes>
       </>
@@ -116,7 +125,7 @@ it returns boolean value*/
         </form>
 
         <h1>JOIN ROOM</h1>
-        <form onSubmit={handlerjoinroom}>
+        <form onSubmit={handlercreateroom}>
           <input
             type="text"
             className="border border-black rounded-xl p-2 m-2"

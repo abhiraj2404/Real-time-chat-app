@@ -11,6 +11,8 @@ export const AppContextProvider = (props) => {
   const [userName, setUserName] = useState("");
   const [userArray, setUserArray] = useState([]);
   const [roomArray, setroomArray] = useState([]);
+  const [currentroom, setcurrentroom] = useState("");
+
   const socket = useMemo(() => io("http://localhost:3000"), []);
 
   const handlerEnterchat = () => {
@@ -40,10 +42,19 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  const handlerjoinroom = (e) => {
+  const handlerjoinroom = (roomid) => {
+    socket.emit("joinroom", { userName: userName, room: roomid, type: "join" });
+    setRoom(roomid);
+    console.log("inside handlerjoinroom");
+    setRoomMsgArray([]);
+  };
+
+  const handlercreateroom = (e) => {
     e.preventDefault();
     if (room) {
-      socket.emit("joinroom", { userName, room });
+      socket.emit("joinroom", { userName, room, type: "join" });
+      console.log("inside createroom");
+      setRoomMsgArray([]);
     }
   };
 
@@ -107,12 +118,15 @@ export const AppContextProvider = (props) => {
         room,
         setRoom,
         handlersubmit,
-        handlerjoinroom,
+        handlercreateroom,
         handlerEnterchat,
         userArray,
         setUserArray,
         roomArray,
         setroomArray,
+        handlerjoinroom,
+        currentroom,
+        setcurrentroom,
       }}
     >
       {props.children}

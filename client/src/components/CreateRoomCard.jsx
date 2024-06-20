@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppContext } from "../context/appContext";
 
 function CreateRoomCard() {
-  const { room, setRoom, handlerjoinroom } = React.useContext(AppContext);
+  const { room, setRoom, handlercreateroom, roomArray } =
+    React.useContext(AppContext);
+  let roomnamearray = [];
+  for (let room of roomArray) {
+    roomnamearray.push(room.roomname);
+  }
   return (
     <>
       <div className="p-4 sm:ml-64 h-screen">
@@ -34,12 +39,19 @@ function CreateRoomCard() {
                   value={room}
                   onChange={(e) => setRoom(e.target.value)}
                 />
+                {roomnamearray.includes(room) ? (
+                  <p className="text-red-600 text-sm">room already exists</p>
+                ) : null}
               </div>
 
               <button
                 type="submit"
-                onClick={handlerjoinroom}
-                className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={
+                  roomnamearray.includes(room)
+                    ? (e) => e.preventDefault()
+                    : handlercreateroom
+                }
+                className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Create Room
               </button>

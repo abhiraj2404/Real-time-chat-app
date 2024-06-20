@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../../context/appContext";
 
-function RoomButton({ userName }) {
+function RoomButton({ socketid, userName }) {
+  const { handlerjoinroom, setcurrentroom } = useContext(AppContext);
+  console.log(socketid);
   return (
     <>
-      <li className="ml-6">
+      <li
+        className="ml-6"
+        onClick={() => {
+          handlerjoinroom(socketid);
+          setcurrentroom(userName);
+        }}
+      >
         <a
           href="#"
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group text-base"

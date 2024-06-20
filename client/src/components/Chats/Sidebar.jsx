@@ -5,6 +5,7 @@ import applogo from "../../assets/logo.svg";
 import { AppContext } from "../../context/appContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import Homebutton from "./buttom_components/homebutton";
 
 export function Sidebar() {
   const { userName, userArray, roomArray } = useContext(AppContext);
@@ -41,8 +42,13 @@ export function Sidebar() {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800 mx-2">
+          {/* <ul className="space-y-2 font-medium mb-4 border-b border-gray-700 pb-4">
+            <Link to="/chats">
+              <Homebutton />
+            </Link>
+          </ul> */}
           <ul className="space-y-2 font-medium mb-4">
-            <Link to="/chats/msgbox">
+            <Link to="/chats/msgbox/worldchat">
               <WorldChatButton />
             </Link>
           </ul>
@@ -71,9 +77,15 @@ export function Sidebar() {
                 <span className="ms-3">Active Users</span>
               </div>
             </li>
-            {userArray.map((user) => (
-              <RoomButton key={user.socket_id} userName={user.userName} />
-            ))}
+            <Link to="/chats/msgbox/roomchat">
+              {userArray.map((user) => (
+                <RoomButton
+                  key={user.socket_id}
+                  userName={user.userName}
+                  socketid={user.socket_id}
+                />
+              ))}
+            </Link>
           </ul>
           <ul className="space-y-2 font-medium border-y border-gray-700 py-4">
             <li>
@@ -100,9 +112,15 @@ export function Sidebar() {
                 <span className="ms-3">Chat Rooms</span>
               </div>
             </li>
-            {roomArray.map((room) => (
-              <RoomButton key={room.roomname} userName={room.roomname} />
-            ))}
+            <Link to="/chats/msgbox/roomchat">
+              {roomArray.map((room) => (
+                <RoomButton
+                  key={room.roomname}
+                  userName={room.roomname}
+                  socketid={room.roomname}
+                />
+              ))}
+            </Link>
           </ul>
           <Link to="/chats/createroom">
             <Createroombutton />

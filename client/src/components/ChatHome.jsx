@@ -103,8 +103,8 @@ function ChatHome() {
                     Limited retention
                   </h3>
                   <p class="text-gray-500 dark:text-gray-400">
-                    Only the last 50 messages are retained. Rest are deleted as
-                    new messages come in.
+                    Messages will only be stored if you are connected to the
+                    site. All data is deleted as soon as you disconnect.
                   </p>
                 </div>
               </div>
