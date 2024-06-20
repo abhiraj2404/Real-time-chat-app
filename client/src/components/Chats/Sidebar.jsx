@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export function Sidebar() {
-  const { userName } = useContext(AppContext);
+  const { userName, userArray, roomArray } = useContext(AppContext);
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -48,7 +48,36 @@ export function Sidebar() {
           </ul>
           <ul className="space-y-2 font-medium border-y border-gray-700 py-4">
             <li>
-              <a
+              <div
+                href="#"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group text-lg"
+              >
+                <svg
+                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <span className="ms-3">Active Users</span>
+              </div>
+            </li>
+            {userArray.map((user) => (
+              <RoomButton key={user.socket_id} userName={user.userName} />
+            ))}
+          </ul>
+          <ul className="space-y-2 font-medium border-y border-gray-700 py-4">
+            <li>
+              <div
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group text-lg"
               >
@@ -69,11 +98,11 @@ export function Sidebar() {
                 </svg>
 
                 <span className="ms-3">Chat Rooms</span>
-              </a>
+              </div>
             </li>
-            <RoomButton />
-            <RoomButton />
-            <RoomButton />
+            {roomArray.map((room) => (
+              <RoomButton key={room.roomname} userName={room.roomname} />
+            ))}
           </ul>
           <Link to="/chats/createroom">
             <Createroombutton />

@@ -9,6 +9,8 @@ export const AppContextProvider = (props) => {
   const [messagearray, setMessageArray] = useState([]);
   const [room, setRoom] = useState("");
   const [userName, setUserName] = useState("");
+  const [userArray, setUserArray] = useState([]);
+  const [roomArray, setroomArray] = useState([]);
   const socket = useMemo(() => io("http://localhost:3000"), []);
 
   const handlerEnterchat = () => {
@@ -61,19 +63,32 @@ export const AppContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    socket.on("servermessage", ({ msg, userName, room, type, time }) => {
-      console.log(msg, userName, room, type, time);
-      if (room)
-        setRoomMsgArray((prev) => [
-          ...prev,
-          { msg, userName, room, type, time },
-        ]);
-      else
-        setMessageArray((prev) => [
-          ...prev,
-          { msg, userName, room, type, time },
-        ]);
-    });
+    socket.on(
+      "servermessage",
+      ({
+        msg,
+        userName,
+        room,
+        type,
+        time,
+        serveruserArray,
+        serverroomArray,
+      }) => {
+        console.log(msg, userName, room, type, time);
+        setUserArray(serveruserArray);
+        setroomArray(serverroomArray);
+        if (room)
+          setRoomMsgArray((prev) => [
+            ...prev,
+            { msg, userName, room, type, time },
+          ]);
+        else
+          setMessageArray((prev) => [
+            ...prev,
+            { msg, userName, room, type, time },
+          ]);
+      }
+    );
   }, [socket]);
 
   return (
@@ -94,6 +109,10 @@ export const AppContextProvider = (props) => {
         handlersubmit,
         handlerjoinroom,
         handlerEnterchat,
+        userArray,
+        setUserArray,
+        roomArray,
+        setroomArray,
       }}
     >
       {props.children}

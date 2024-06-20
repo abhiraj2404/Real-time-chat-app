@@ -1,6 +1,6 @@
 import React from "react";
 
-function RoomButton() {
+function RoomButton({ userName }) {
   return (
     <>
       <li className="ml-6">
@@ -24,7 +24,7 @@ function RoomButton() {
             />
           </svg>
 
-          <span className="ms-3">Room 1</span>
+          <span className="ms-3">{userName}</span>
         </a>
       </li>
     </>
