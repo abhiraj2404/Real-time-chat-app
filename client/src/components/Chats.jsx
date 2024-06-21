@@ -1,6 +1,6 @@
 import React from "react";
 import { Sidebar } from "./Chats/Sidebar";
-import Msgbox from "./Chats/MsgBox";
+import Msgbox from "./Chats/Msgbox";
 import { AppContext } from "../context/appContext";
 import { Link, Outlet } from "react-router-dom";
 

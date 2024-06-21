@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Chats from "./components/Chats.jsx";
 import Home from "./components/Home.jsx";
 import CreateRoomCard from "./components/CreateRoomCard.jsx";
-import MsgBox from "./components/Chats/MsgBox.jsx";
+import Msgbox from "./components/Chats/Msgbox.jsx";
 import ChatHome from "./components/ChatHome.jsx";
 import { AppContext } from "./context/appContext";
 
@@ -38,11 +38,11 @@ it returns boolean value*/
             <Route path="createroom" element={<CreateRoomCard />} />
             <Route
               path="msgbox/worldchat"
-              element={<MsgBox messagearray={messagearray} />}
+              element={<Msgbox messagearray={messagearray} />}
             />
             <Route
               path="msgbox/roomchat"
-              element={<MsgBox messagearray={roomMsgArray} />}
+              element={<Msgbox messagearray={roomMsgArray} />}
             />
           </Route>
         </Routes>
