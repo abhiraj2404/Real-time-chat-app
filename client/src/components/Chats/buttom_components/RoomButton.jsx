@@ -3,7 +3,6 @@ import { AppContext } from "../../../context/appContext";
 
 function RoomButton({ socketid, userName }) {
   const { handlerjoinroom, setcurrentroom } = useContext(AppContext);
-  console.log(socketid);
   return (
     <>
       <li
@@ -13,10 +12,7 @@ function RoomButton({ socketid, userName }) {
           setcurrentroom(userName);
         }}
       >
-        <a
-          href="#"
-          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group text-base"
-        >
+        <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group text-base">
           <svg
             className="w-6 h-6 text-gray-800 dark:text-white"
             aria-hidden="true"
@@ -34,7 +30,7 @@ function RoomButton({ socketid, userName }) {
           </svg>
 
           <span className="ms-3">{userName}</span>
-        </a>
+        </div>
       </li>
     </>
   );

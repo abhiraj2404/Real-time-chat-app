@@ -17,7 +17,7 @@ function CreateRoomCard() {
               <h5 className="text-4xl font-medium text-gray-900 dark:text-white text-center mb-1 mx-5">
                 Create a new room
               </h5>
-              <p class=" mx-2 font-normal text-gray-700 dark:text-gray-400 italic">
+              <p className=" mx-2 font-normal text-gray-700 dark:text-gray-400 italic">
                 Form a personal space for you and your buddies to share some
                 cool stuff without any one ever finding out about it.
               </p>

@@ -8,9 +8,15 @@ import { useContext } from "react";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 
 function Msgbox({ messagearray }) {
-  const { message, setMessage, userName, handlersubmit, currentroom } =
+  const { message, setMessage, userName, handlersubmit, currentroom, room } =
     useContext(AppContext);
   const [emojiopen, setemojiopen] = useState(false);
+
+  if (room) {
+    messagearray = messagearray.filter((data) => {
+      return data.room === room;
+    });
+  }
   let displayArray = messagearray.map((data, index) => {
     if (data.type === "join") {
       return <Joinmsg key={index} data={data} />;

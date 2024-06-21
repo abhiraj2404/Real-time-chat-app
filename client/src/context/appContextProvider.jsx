@@ -45,16 +45,12 @@ export const AppContextProvider = (props) => {
   const handlerjoinroom = (roomid) => {
     socket.emit("joinroom", { userName: userName, room: roomid, type: "join" });
     setRoom(roomid);
-    console.log("inside handlerjoinroom");
-    setRoomMsgArray([]);
   };
 
   const handlercreateroom = (e) => {
     e.preventDefault();
     if (room) {
       socket.emit("joinroom", { userName, room, type: "join" });
-      console.log("inside createroom");
-      setRoomMsgArray([]);
     }
   };
 
@@ -85,7 +81,6 @@ export const AppContextProvider = (props) => {
         serveruserArray,
         serverroomArray,
       }) => {
-        console.log(msg, userName, room, type, time);
         setUserArray(serveruserArray);
         setroomArray(serverroomArray);
         if (room)

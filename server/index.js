@@ -22,20 +22,28 @@ io.on('connection', (socket) => {
     console.log('A connection was established', socket.id);
 
     socket.on('joinroom', ({ msg, room, userName, type, time }) => {
-        socket.join(room);
-        for (let user of serveruserArray) {
-            serveruseridArray.push(user.socket_id);
-        }
-        serverroomArray = [];
-        for (let key of socket.adapter.rooms.keys()) {
-            if (!serveruseridArray.includes(key)) {
-                serverroomArray.push({ roomname: key });
+        // console.log(room, socket.rooms)
+        let alreadyjoined = socket.rooms.has(room);
+        // console.log(alreadyjoined)
+        if (!alreadyjoined) {
+
+
+
+            socket.join(room);
+            for (let user of serveruserArray) {
+                serveruseridArray.push(user.socket_id);
             }
+            serverroomArray = [];
+            for (let key of socket.adapter.rooms.keys()) {
+                if (!serveruseridArray.includes(key)) {
+                    serverroomArray.push({ roomname: key });
+                }
+            }
+            if (type === 'join')
+                io.to(room).emit('servermessage', { msg, room, userName, type, time, serveruserArray, serverroomArray });
+            console.log(`User ${userName} joined room: ${room}`);
+            io.emit('servermessage', { msg, room, userName, type: '', time, serveruserArray, serverroomArray });
         }
-        if (type === 'join')
-            io.to(room).emit('servermessage', { msg, room, userName, type, time, serveruserArray, serverroomArray });
-        console.log(`User ${userName} joined room: ${room}`);
-        io.emit('servermessage', { msg, room, userName, type: '', time, serveruserArray, serverroomArray });
     });
 
     socket.on('clientmessage', ({ msg, room, userName, type, time }) => {

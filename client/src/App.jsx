@@ -1,6 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { io } from "socket.io-client";
-
+import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Chats from "./components/Chats.jsx";
 import Home from "./components/Home.jsx";
@@ -8,55 +6,9 @@ import CreateRoomCard from "./components/CreateRoomCard.jsx";
 import MsgBox from "./components/Chats/MsgBox.jsx";
 import ChatHome from "./components/ChatHome.jsx";
 import { AppContext } from "./context/appContext";
-import Rules from "./components/Chats/Rules.jsx";
 
 function App() {
   const { messagearray, roomMsgArray } = useContext(AppContext);
-  // const [message, setMessage] = useState("");
-  // const [connectionID, setConnectionID] = useState("");
-  // const [roomMsgArray, setRoomMsgArray] = useState([]);
-  // const [messagearray, setMessageArray] = useState([]);
-  // const [room, setRoom] = useState("");
-  // const [userName, setUserName] = useState("");
-  // const socket = useMemo(() => io("http://localhost:3000"), []);
-
-  // const handlersubmit = (e) => {
-  //   e.preventDefault();
-  //   if (message) {
-  //     socket.emit("clientmessage", {
-  //       msg: message,
-  //       room: room,
-  //       userName: userName,
-  //     });
-  //     setMessage("");
-  //   }
-  // };
-
-  // const handlercreateroom = (e) => {
-  //   e.preventDefault();
-  //   if (room) {
-  //     socket.emit("joinroom", { userName, room });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   socket.on("connect", () => {
-  //     console.log("Connected to server", socket.id);
-  //     setConnectionID(socket.id);
-  //   });
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   socket.on("servermessage", ({ msg, userName, room }) => {
-  //     console.log(msg, userName, room);
-  //     if (room) setRoomMsgArray((prev) => [...prev, { msg, userName, room }]);
-  //     else setMessageArray((prev) => [...prev, { msg, userName, room }]);
-  //   });
-  // }, [socket]);
 
   /* Storing user's device details in a variable*/
   let details = navigator.userAgent;
@@ -83,7 +35,6 @@ it returns boolean value*/
           <Route path="/" element={<Home />} />
           <Route path="chats" element={<Chats />}>
             <Route path="" element={<ChatHome />} />
-            <Route path="rules" element={<Rules />} />
             <Route path="createroom" element={<CreateRoomCard />} />
             <Route
               path="msgbox/worldchat"
