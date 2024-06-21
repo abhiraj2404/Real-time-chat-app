@@ -3,12 +3,13 @@ import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+const app = express();
 app.use(cors());
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
-const app = express();
+
 
 const server = createServer(app);
 const io = new Server(server, {
