@@ -13,7 +13,10 @@ export const AppContextProvider = (props) => {
   const [roomArray, setroomArray] = useState([]);
   const [currentroom, setcurrentroom] = useState("");
 
-  const socket = useMemo(() => io("http://localhost:3000"), []);
+  const socket = useMemo(
+    () => io("https://real-time-chat-app-server-weld.vercel.app"),
+    []
+  );
 
   const handlerEnterchat = () => {
     if (userName) {
