@@ -5,7 +5,7 @@ import applogo from "../../assets/logo.svg";
 import { AppContext } from "../../context/appContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import Homebutton from "./buttom_components/homebutton";
+import userlogo from "../../assets/userlogo.jpg";
 
 export function Sidebar() {
   const { userName, userArray, roomArray } = useContext(AppContext);
@@ -30,7 +30,7 @@ export function Sidebar() {
             <div className="flex items-center">
               <img
                 className="w-8 h-8 rounded-full"
-                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                src={userlogo}
                 alt="user photo"
               />
             </div>

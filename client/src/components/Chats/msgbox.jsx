@@ -5,7 +5,8 @@ import Joinmsg from "./msg_components/Joinmsg";
 import LeaveMsg from "./msg_components/Leavemsg";
 import { AppContext } from "../../context/appContext";
 import { useContext } from "react";
-import EmojiPicker, { Emoji } from "emoji-picker-react";
+import EmojiPicker from "emoji-picker-react";
+import { Popover } from "flowbite-react";
 
 function Msgbox({ messagearray }) {
   const { message, setMessage, userName, handlersubmit, currentroom, room } =
@@ -45,42 +46,52 @@ function Msgbox({ messagearray }) {
           </div>
 
           <form onSubmit={handlersubmit} className="mx-4 mb-4 relative">
-            <label htmlFor="chat" className="sr-only">
-              Your message
-            </label>
             <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-              <button
-                type="button"
-                className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+              <Popover
+                aria-labelledby="default-popover"
+                trigger="hover"
+                placement="top"
+                content={
+                  <div className="w-40 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="px-3 py-2">
+                      <p>Image upload feature coming soon...</p>
+                    </div>
+                  </div>
+                }
               >
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 18"
+                <button
+                  type="button"
+                  className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
                 >
-                  <path
-                    fill="currentColor"
-                    d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
-                  />
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
-                  />
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
-                  />
-                </svg>
-                <span className="sr-only">Upload image</span>
-              </button>
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 18"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+                    />
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
+                    />
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+                    />
+                  </svg>
+                  <span className="sr-only">Upload image</span>
+                </button>
+              </Popover>
               <EmojiPicker
                 className="absolute top-0 right-0 z-50"
                 theme="dark"

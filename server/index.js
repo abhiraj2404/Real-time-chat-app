@@ -1,7 +1,11 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
@@ -9,7 +13,8 @@ const server = createServer(app);
 const io = new Server(server, {
     cors: {
         origin: '*',
-        methods: [ 'GET', 'POST' ]
+        methods: [ 'GET', 'POST' ],
+        credentials: true
     }
 });
 
@@ -96,6 +101,6 @@ app.get('/', (req, res) => {
     res.send('This is our server for deep-chat');
 })
 
-server.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+server.listen(PORT, () => {
+    console.log('Server is running');
 });
