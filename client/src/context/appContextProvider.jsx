@@ -14,10 +14,7 @@ export const AppContextProvider = (props) => {
   const [currentroom, setcurrentroom] = useState("");
 
   const socket = useMemo(
-    () =>
-      io(
-        "https://real-time-chat-app-server-81u7na66w-abhirajs-projects-8e9cc59b.vercel.app/"
-      ),
+    () => io("https://real-time-chat-app-server-pftd.onrender.com"),
     []
   );
 
